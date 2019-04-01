@@ -1,6 +1,6 @@
 public class MyLinkedList{
   private int size;
-  private Node start,end;
+  private Node<E> start,end;
 
   public MyLinkedList(){
       start = null;
@@ -13,12 +13,12 @@ public class MyLinkedList{
   }
   public boolean add(int value) {
     if( size == 0) {
-      Node n = new Node(value,null,null);
+      Node<E> n = new Node<E>(value,null,null);
       start = n;
       end = n;
     }
     if( size >= 1) {
-      Node n = new Node(value, null, end);
+      Node<E> n = new Node<E>(value, null, end);
       n.prev().setNext(n);
       end = n;
     }
@@ -30,7 +30,7 @@ public class MyLinkedList{
     if( size == 0)
     return "[]";
     String output = "[";
-    Node n = start;
+    Node<E> n = start;
     while(n != end) {
       output += n.getData() +", ";
       n = n.next();
@@ -42,7 +42,7 @@ public class MyLinkedList{
     if (size == 0)
     return "[]";
     String output = "[";
-    Node n = end;
+    Node<E> n = end;
     while( n != start ) {
       output += n.getData() + ", ";
       n = n.prev();
@@ -53,7 +53,7 @@ public class MyLinkedList{
   public Integer get(int index) {
     if( index < 0 || index >= size)
     throw new IndexOutOfBoundsException("Index must be within list");
-    Node current = start;
+    Node<E> current = start;
     for( int i = 0; i < index; i++) {
       current = current.next();
     }
@@ -63,7 +63,7 @@ public class MyLinkedList{
   public Integer set(int index, Integer value) {
     if( index < 0 || index >= size)
     throw new IndexOutOfBoundsException("Index must be within list");
-    Node current = start;
+    Node<E> current = start;
     for( int i = 0; i < index; i++) {
       current = current.next();
     }
@@ -73,7 +73,7 @@ public class MyLinkedList{
   }
 
   public boolean contains( Integer value){
-    Node current = start;
+    Node<E> current = start;
     while( current != null) {
       if ( current.getData() == value)
       return true;
@@ -84,7 +84,7 @@ public class MyLinkedList{
 
   public int indexOf(Integer value){
     if(contains(value)) {
-      Node current = start;
+      Node<E> current = start;
       int index = 0;
       while( current.getData() != value) {
         index++;
@@ -98,18 +98,18 @@ public class MyLinkedList{
   public void add(int index, Integer value){
     if( index < 0 || index > size)
     throw new IndexOutOfBoundsException("Index must be within list");
-    Node n = new Node(value,null,null);
+    Node<E> n = new Node(value,null,null);
     if( index == 0){
       n.setNext(start);
       start.setPrev(n);
       start = n;
       size++;
     } else {
-      Node current = start;
+      Node<E> current = start;
       for( int i = 0; i < index; i++) {
         current = current.next();
       }
-      Node before = current.prev();
+      Node<E> before = current.prev();
       before.setNext(n);
       current.setPrev(n);
       n.setPrev(before);
@@ -121,25 +121,25 @@ public class MyLinkedList{
   public Integer remove(int index){
     if( index < 0 || index >= size)
     throw new IndexOutOfBoundsException("Index must be within list");
-    Node current = start;
+    Node<E> current = start;
     for( int i = 0; i < index; i++) {
       current = current.next();
     }
     if( end == current) {
-      Node before = current.prev();
+      Node<E> before = current.prev();
       before.setNext(null);
       end = before;
       size--;
       return current.getData();
     } else {
       if ( current == start) {
-        Node after = current.next();
+        Node<E> after = current.next();
         after.setPrev(null);
         start = after;
         size--;
       } else {
-        Node before = current.prev();
-        Node after = current.next();
+        Node<E> before = current.prev();
+        Node<E> after = current.next();
         before.setNext(after);
         after.setPrev(before);
         size--;
@@ -167,9 +167,9 @@ public class MyLinkedList{
 
     public class Node{
  private Integer data;
- private Node next,prev;
+ private Node<E> next,prev;
 
-public Node( Integer val, Node Next, Node previous) {
+public Node<E>( Integer val, Node Next, Node previous) {
   data = val;
   next = Next;
   prev = previous;
@@ -179,7 +179,7 @@ public Node( Integer val, Node Next, Node previous) {
    return data;
  }
 
- public Node next() {
+ public Node<E> next() {
    return next;
  }
 
@@ -187,7 +187,7 @@ public Node( Integer val, Node Next, Node previous) {
    next = val;
  }
 
- public Node prev() {
+ public Node<E> prev() {
    return prev;
  }
 
