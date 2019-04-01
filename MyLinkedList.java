@@ -166,7 +166,7 @@ public class MyLinkedList{
     }
 
     public class Node{
- private Integer data;
+ private E data;
  private Node<E> next,prev;
 
 public Node<E>( Integer val, Node Next, Node previous) {
@@ -175,7 +175,7 @@ public Node<E>( Integer val, Node Next, Node previous) {
   prev = previous;
 }
 
- public int getData() {
+ public E getData() {
    return data;
  }
 
@@ -195,8 +195,8 @@ public Node<E>( Integer val, Node Next, Node previous) {
    prev = val;
  }
 
- public Integer setData(Integer i) {
-   Integer temp = data;
+ public E setData(Integer i) {
+   E temp = data;
    data = i;
    return temp;
  }
