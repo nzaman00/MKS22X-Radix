@@ -18,12 +18,6 @@ public class Radix{
       }
     for(int Pow = 0; Pow < max; Pow++){
       if(Pow == 0){//first case
-    for(int i =0;i < data.length;i++){
-      if(data[i] < 0){
-         neg = true;
-      }if(data[i] >= 0){
-         neg = false;
-      }
       if(data[i] < 0){
         buckets[9 - ((Math.abs(data[i]) / (int)Math.pow(10, Pow))%10) ].add(data[i]);
       }else{
@@ -37,19 +31,14 @@ public class Radix{
     }
   }
   if (Pow + 1 == max){//final case
-    for(int i = 0; i < Hold.size(); i++){
-      if(Hold.get(i) < 0){
-         neg = true;
+    while(Hold.size() > 0){
+      int item = Hold.remove(0);
+      if(item < 0){
+        buckets[9 - ((Math.abs(item) / (int)Math.pow(10, Pow))%10) ].add(item);
       }else{
-         neg = false;
-      }
-      if(neg){
-        buckets[9 - ((Math.abs(Hold.get(i)) / (int)Math.pow(10, Pow))%10) ].add(Hold.get(i));
-      }else{
-        buckets[ 10 + ((Math.abs(Hold.get(i)) / (int)Math.pow(10, Pow))%10) ].add(Hold.get(i));
+        buckets[ 10 + ((Math.abs(item) / (int)Math.pow(10, Pow))%10) ].add(item);
       }
     }
-    Hold.clear();
     for(int i = 0; i < 20; i++){
       if(buckets[i].size() > 0){
         Hold.extend(buckets[i]);
@@ -60,16 +49,12 @@ public class Radix{
     }
   }
   if(Pow > 0 && Pow+1 < max){//intermediate passes if any
-    for(int i = 0; i < Hold.size(); i++){
-      if(Hold.get(i) < 0){
-         neg = true;
+    while( Hold.size() > 0){
+      int item = Hold.remove(0);
+      if(item < 0){
+        buckets[9 - ((Math.abs(item) / (int)Math.pow(10, Pow))%10) ].add(item);
       }else{
-        neg = false;
-      }
-      if(neg){
-        buckets[9 - ((Math.abs(Hold.get(i)) / (int)Math.pow(10, Pow))%10) ].add(Hold.get(i));
-      }else{
-        buckets[ 10 + ((Math.abs(Hold.get(i)) / (int)Math.pow(10, Pow))%10) ].add(Hold.get(i));
+        buckets[ 10 + ((Math.abs(item) / (int)Math.pow(10, Pow))%10) ].add(item);
       }
     }
     Hold.clear();
