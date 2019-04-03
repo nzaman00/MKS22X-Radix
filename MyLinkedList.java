@@ -70,12 +70,22 @@ public class MyLinkedList<E> {
   }
   @SuppressWarnings("unchecked")
   public void extend(MyLinkedList other){
-        this.end.setNext(other.start) ;
-        this.end = other.end ;
-        other.start = null ;
-        other.end = null ;
-        this.length += other.length ;
-        other.length = 0 ;
+        if(other.size() == 0){
+          return;
+        }
+        if(this.size() ==0){
+          this.start = other.start;
+          this.length = other.length;
+          this.end= other.end;
+          other.clear();
+          return;
+        }
+        this.end.setNext(other.start);
+        this.end = other.end;
+        this.length += other.length;
+        other.clear();
+
+
     }
 
   private Node getNthNode(int n) {
@@ -174,7 +184,11 @@ public class MyLinkedList<E> {
     E old = get(index) ;
     if (index == 0) {
       start = start.next() ;
+      if(start != null){
+
+
       start.setPrev(null) ;
+    }
       length-- ;
       return old ;
     }
